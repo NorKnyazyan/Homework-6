@@ -1,0 +1,163 @@
+Task 1
+// What will be the outputs and explain why?
+
+function logThis() {
+    console.log(this);
+}
+logThis(); // Global Window (Stand alone function@ misht hxvuma global Window ojecti)
+
+const myObject = {
+    logThis: logThis
+};
+myObject.logThis(); // myObject (Es depqum this@ myObject objecti contextuma kanchvac)
+
+Task 2
+
+const obj = {
+    name: 'Object',
+    logThis: function() {
+        console.log(this);
+} };
+
+obj.logThis(); // @ndanur obj (this@ obj objecti contextuma kanchvac)
+
+obj.callLogThis = function() {
+    this.logThis();
+    console.log(this);
+};
+obj.callLogThis();
+// @ndanur obj nra nor stexcvac metodov (callLogThis) (nuynpes this@ obj objecti contextuma kanchvac)
+
+Task 3
+
+const obj = {
+    regularFunction: function() {
+        console.log(this);
+    },
+    arrowFunction: () => {
+        console.log(this);
+} };
+
+obj.regularFunction(); //  obj objectna tpelu
+obj.arrowFunction(); // arrow function@ this chuni (Hxvuma global Window objecti)
+
+Task 4
+
+const obj = {
+   age: 24,
+   foo: function () {
+       let self = this;
+       ((num) => {
+           this.age = num
+       })(17);
+       console.log(this.age);
+   }
+} obj.foo() // 17 (es depqum arrow function@ foo metodi meja stexcvac, vori mej IIFE ka, vor@ this@ stanuma arden foo metodic, vor obj contexti mecha)
+
+
+Task 6
+
+const obj = {
+    age: 22,
+    showAge() {
+        console.log(this.age)
+        const arrowAge = () => {
+            console.log(this.age)
+        }
+        arrowAge()
+    },
+    showArrowAge: () => {
+        console.log(this.age)     
+  }  
+}   
+
+obj.showAge() // 22 
+obj.showArrowAge() // 22 (arrow function@ kanchaca objecti metodi (showAg) mej u stanuma nra context@ (obj object@))
+
+Task 7
+
+function logThis() {
+    console.log(this);
+}
+const specificObject = {name: 'Specific Object'};
+const boundFunction = logThis.bind(specificObject);
+boundFunction(); // {name: 'Specific Object'}
+logThis.call(specificObject); {name: 'Specific Object'} (menq dzerqov talis enq specificObject objecti kontext@)
+logThis.apply(specificObject); {name: 'Specific Object'} (nuyna inch@ call, uxxaki vorpes array enq poxancel argumentner@)
+
+Task 8
+
+function foo (fn) {
+    fn(this)
+ }
+ function logger(arg) {
+    console.log(arg)
+ }
+ const obj = {
+    word: 'hello',
+    foo,
+ }
+ obj.foo(logger) // {word: 'hello', foo: [Function: foo]} 
+
+Task 9
+
+const foo = function () {
+    this.x = 5;
+    (function () {
+        this.x = 3;
+ })();
+    console.log(this.x);
+ };
+ const obj = {
+    x: 4,
+    logger: function () {
+        This = {}
+        console.log(this.x);
+    }
+ };
+ foo(); // 3
+ new foo(); // 5
+ obj.logger(); // 4
+ new obj.logger(); // undefined
+
+Task 10
+// Using the Rest Operator
+Create a function called sum that takes any number of arguments and returns their sum. Use the rest operator to handle the arguments.
+
+function sum (...args) {
+    return args.reduce((accum, elem) => accum + elem)
+}
+
+Task 11
+// Destructuring Objects
+Create an object called person with properties name, age, and city. Write a function called introduce that takes the person object as an argument and uses destructuring to extract the properties. The function should return a string introducing the person.
+
+function introduce (obj) {
+    let {name, age, city} = obj;
+    return `Hi, I'm ${name}, I'm ${age} years old
+ and I live in ${city}.`
+}
+
+Task 12
+// Destructuring Arrays
+Write a function called getFirstTwo that takes an array of numbers and uses array destructuring to return the first two elements as an array.
+
+function getFirstTwo (arr) {
+    let [a, b] = arr;
+    return [a, b]
+}
+
+Task 13
+// Using the Spread Operator with Arrays
+Create a function called combineArrays that takes two arrays and combines them into a new array using the spread operator. The function should return the combined array.
+
+function combineArrays (arr1, arr2) {
+    return [...arr1, ...arr2]
+}
+
+Task 14
+// Create a function called processStudents that accepts a variable number of student objects. Each student object should have properties like name, age, and grades. Use the rest operator to collect all the student objects. Destructure each student to log their name and average grade (assuming grades is an array). Use the spread operator to create a new array that combines all students' names.
+
+function mergeObjects (...args) {
+    return args.reduce((accum, elem) => ({...accum, ...elem}), {})
+}
